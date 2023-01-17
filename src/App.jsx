@@ -1,5 +1,5 @@
-import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import ProductProvider from "./context/ProductProvider";
 import Main from "./layout/Main";
 import About from "./pages/About";
 import Cart from "./pages/Cart";
@@ -39,7 +39,9 @@ const router = createBrowserRouter([
 const App = () => {
   return (
     <div style={{ padding: "40px 100px" }}>
-      <RouterProvider router={router}></RouterProvider>
+      <ProductProvider>
+        <RouterProvider router={router}></RouterProvider>
+      </ProductProvider>
     </div>
   );
 };

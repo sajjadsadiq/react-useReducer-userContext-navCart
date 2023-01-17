@@ -1,8 +1,10 @@
-import React, { Children, createContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 
-const PRODUCT_CONTEXT = createContext();
+// PRODUCT CONTEXT
+const RPODUCT_CONTEXT = createContext();
 
-const ProductProvider = () => {
+const ProductProvider = ({ children }) => {
+  // Data Fatch API
   const [products, setProducts] = useState([]);
   useEffect(() => {
     fetch("products.json")
@@ -10,8 +12,21 @@ const ProductProvider = () => {
       .then((data) => setProducts(data));
   }, []);
 
-  const value = { products };
-  return <PRODUCT_CONTEXT.provider value={value}>{Children}</PRODUCT_CONTEXT.provider>;
+  // State Data Value
+  const value = {
+    products,
+  };
+  return (
+    <RPODUCT_CONTEXT.Provider value={value}>
+      {children}
+    </RPODUCT_CONTEXT.Provider>
+  );
+};
+
+// Hook - useProducts
+export const useProducts = () => {
+  const context = useContext(RPODUCT_CONTEXT);
+  return context;
 };
 
 export default ProductProvider;
